@@ -1,3 +1,8 @@
+body{
+  display: flex !important;
+    flex-direction: column;
+}
+
 .main {
   margin: 0;
   padding: 0;
@@ -6,23 +11,12 @@
   outline: none;
   background: url('../public/assets/image.jpg');
   background-size: cover;
+    min-height: 100vh;
+      flex: 1 0 auto;
 }
 
-.container {
-  width: 100%;
-  padding: 1em;
-}
-
-.grid {
-  display: grid;
-  margin-left: .5px;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1em;
-  justify-content: center;
-}
 
 h2 {
-  /* background-color: ; */
   text-align: center;
   color: white !important;
   height: 100vh;

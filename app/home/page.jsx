@@ -9,7 +9,7 @@ import {
   Form,
   FormControl,
   Button,
-  Spinner,
+  Row,
 } from "react-bootstrap";
 import MovieBox from "../(component)/MovieBox";
 
@@ -28,6 +28,7 @@ function page() {
       const res = await fetch(API_URL);
       const data = await res.json();
       setMovies(data.results);
+      console.log("data.results", data.results);
     } catch (e) {
       console.log(e);
     }
@@ -50,10 +51,9 @@ function page() {
   };
   return (
     <>
-      <Navbar bg="dark" expand="lg" variant="dark" className="main">
+      <Navbar bg="dark" expand="lg" variant="dark">
         <Container fluid>
-          <Navbar.Brand href="/home">MovieDb App</Navbar.Brand>
-          <Navbar.Brand href="/home">Trending</Navbar.Brand>
+          <Navbar.Brand href="/home">Movies Database By Abdi</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll"></Navbar.Toggle>
 
           <Navbar.Collapse id="nabarScroll">
@@ -82,13 +82,13 @@ function page() {
       </Navbar>
       <div className="main">
         {movies.length > 0 ? (
-          <div className="container">
-            <div className="grid">
+          <Container className="py-3">
+            <Row className="gap-3 justify-content-center">
               {movies.map((movieReq) => (
                 <MovieBox key={movieReq.id} {...movieReq} />
               ))}
-            </div>
-          </div>
+            </Row>
+          </Container>
         ) : (
           <h2>Loading Please Wait</h2>
         )}

@@ -16,7 +16,7 @@ const MovieBox = ({
   const handleClose = () => setShow(false);
 
   return (
-    <div className="card text-center bg-warning mb-3">
+    <div className="card text-center bg-warning mb-3 col-md-4 col-lg-2  ">
       <img className="card-img-top" src={API_IMG + poster_path} />
       <div className="card-body ">
         <h4>IMDb Rating: {vote_average}</h4>
