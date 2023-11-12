@@ -18,6 +18,7 @@ const API_URL =
 function page() {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getMovies();
@@ -25,10 +26,11 @@ function page() {
 
   const getMovies = async (e) => {
     try {
+      setLoading(true);
       const res = await fetch(API_URL);
       const data = await res.json();
       setMovies(data.results);
-      console.log("data.results", data.results);
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }
@@ -37,10 +39,13 @@ function page() {
   const searchMovie = async (e) => {
     e.preventDefault();
     try {
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=1ab0c7d4ccf2120d836d098881dd51d0&query=${query}`;
-      const res = await fetch(url);
+      setLoading(true);
+      const res = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=1ab0c7d4ccf2120d836d098881dd51d0&query=${query}`
+      );
       const data = await res.json();
       setMovies(data.results);
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }
@@ -81,7 +86,20 @@ function page() {
         </Container>
       </Navbar>
       <div className="main">
-        {movies.length > 0 ? (
+        {loading ? (
+          <h2>Loading Please Wait</h2>
+        ) : movies.length > 0 ? (
+          <Container className="py-3">
+            <Row className="gap-3 justify-content-center">
+              {movies.map((movieReq) => (
+                <MovieBox key={movieReq.id} {...movieReq} />
+              ))}
+            </Row>
+          </Container>
+        ) : (
+          <h2>Sorry No Movie Found. Try changing search query</h2>
+        )}
+        {/* {movies.length > 0 ? (
           <Container className="py-3">
             <Row className="gap-3 justify-content-center">
               {movies.map((movieReq) => (
@@ -91,7 +109,7 @@ function page() {
           </Container>
         ) : (
           <h2>Loading Please Wait</h2>
-        )}
+        )} */}
       </div>
     </>
   );
