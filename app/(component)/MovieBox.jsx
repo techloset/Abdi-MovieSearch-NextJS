@@ -1,6 +1,5 @@
 import { Modal, Button } from "react-bootstrap";
 import React, { useState } from "react";
-// import noImage from "../../public";
 
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
 const MovieBox = ({

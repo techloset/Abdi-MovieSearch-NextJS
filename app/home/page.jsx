@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-// import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Navbar,
@@ -20,6 +19,11 @@ function page() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
+  console.log(
+    "process.env.NEXT_PUBLIC_API_URL",
+    process.env.NEXT_PUBLIC_API_URL
+  );
+
   useEffect(() => {
     getMovies();
   }, []);
@@ -35,6 +39,7 @@ function page() {
       console.log(e);
     }
   };
+  console.log("movies", movies);
 
   const searchMovie = async (e) => {
     e.preventDefault();
@@ -99,17 +104,6 @@ function page() {
         ) : (
           <h2>Sorry No Movie Found. Try changing search query</h2>
         )}
-        {/* {movies.length > 0 ? (
-          <Container className="py-3">
-            <Row className="gap-3 justify-content-center">
-              {movies.map((movieReq) => (
-                <MovieBox key={movieReq.id} {...movieReq} />
-              ))}
-            </Row>
-          </Container>
-        ) : (
-          <h2>Loading Please Wait</h2>
-        )} */}
       </div>
     </>
   );
