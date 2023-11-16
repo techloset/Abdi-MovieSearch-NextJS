@@ -19,11 +19,6 @@ function page() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
-  console.log(
-    "process.env.NEXT_PUBLIC_API_URL",
-    process.env.NEXT_PUBLIC_API_URL
-  );
-
   useEffect(() => {
     getMovies();
   }, []);
@@ -31,7 +26,7 @@ function page() {
   const getMovies = async (e) => {
     try {
       setLoading(true);
-      const res = await fetch(API_URL);
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL);
       const data = await res.json();
       setMovies(data.results);
       setLoading(false);
