@@ -13,7 +13,11 @@ const Card = ({ mapData }) => {
         >
           <figure className="px-2 pt-2">
             <Image
-              src={API_IMG + movie.poster_path}
+              src={
+                !movie.poster_path
+                  ? "/img/noImagePotrait.jpg"
+                  : API_IMG + movie.poster_path
+              }
               className="rounded-xl"
               width={384}
               height={100}

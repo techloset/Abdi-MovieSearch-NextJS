@@ -1,3 +1,4 @@
+import Navbar from "@/app/(components)/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,11 +29,16 @@ const page = async ({ params }) => {
   const API_IMG = "https://image.tmdb.org/t/p/w500/";
 
   return (
-    <main>
+    <>
+      <Navbar />
       <div className="flex flex-col py-10 px-4 justify-center items-center">
         <div className=" md:w-[700px] h-fit bg-slate-200 rounded flex flex-col items-center shadow-2xl px-10 py-8">
           <img
-            src={API_IMG + movie.backdrop_path}
+            src={
+              !movie.poster_path
+                ? "/img/noImageLandscape.jpg"
+                : API_IMG + movie.backdrop_path
+            }
             className="rounded-xl"
             alt={movie.title}
           />
@@ -65,7 +71,7 @@ const page = async ({ params }) => {
           </Link>
         </div>
       </div>
-    </main>
+    </>
   );
 };
 

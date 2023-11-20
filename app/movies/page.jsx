@@ -1,20 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import Card from "../(components)/Card";
-import Navbar from "../(components)/Navbar";
+import Link from "next/link";
 
 const API_URL =
   "https://api.themoviedb.org/3/movie/popular?api_key=1ab0c7d4ccf2120d836d098881dd51d0";
 const page = () => {
   const [movies, setMovies] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getMovies();
-  });
+  }, []);
 
-  const getMovies = async () => {
+  const getMovies = async (e) => {
     try {
       setLoading(true);
       const res = await fetch(API_URL);
@@ -26,17 +26,67 @@ const page = () => {
     }
   };
 
-  const getQuery = (query) => {
-    setSearchText(query);
-    console.log("searchText", searchText);
+  const searchMovie = async (e) => {
+    e.preventDefault();
+    if (query === "") {
+      return;
+    }
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=1ab0c7d4ccf2120d836d098881dd51d0&query=${query}`
+      );
+      const data = await res.json();
+      setMovies(data.results);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
+  const changeHandler = (e) => {
+    setQuery(e.target.value);
+  };
   return (
     <>
-      <Navbar getQueryText={getQuery} />
-
-      <div className="flex flex-wrap gap-2 justify-center bg-gradient-to-r from-cyan-400 to-blue-500 py-4 px-3">
-        <Card mapData={movies} />
+      <nav>
+        <div className="flex flex-col md:flex-row gap-3 justify-between px-10 py-6 shadow-2xl items-center">
+          <Link href="/" className="text-blue-500 text-2xl font-bold">
+            Movies Database
+          </Link>
+          <form
+            className="flex flex-wrap justify-center gap-1"
+            autoComplete="off"
+            onSubmit={searchMovie}
+          >
+            <input
+              type="search"
+              aria-label="search"
+              name="query"
+              id="search"
+              placeholder="Search a movie"
+              className="px-10 py-2 md:py-4 border rounded-md m-0"
+              value={query}
+              onChange={changeHandler}
+            />
+            <button
+              type="submit"
+              className="px-10 py-2 md:py-4 bg-blue-500 text-white rounded-md"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </nav>
+      {/* nav End */}
+      <div className="flex flex-wrap gap-2 justify-center bg-gradient-to-r min-h-screen from-cyan-400 to-blue-500 py-4 px-3">
+        {loading ? (
+          <h2>Loading Please Wait</h2>
+        ) : movies.length > 0 ? (
+          <Card mapData={movies} />
+        ) : (
+          <h2>Sorry No Movie Found. Try changing search query</h2>
+        )}
       </div>
     </>
   );
