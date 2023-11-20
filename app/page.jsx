@@ -1,8 +1,7 @@
-import React from "react";
-import Home from "./home/page";
+import Movies from "./movies/page.jsx";
 
-const page = () => {
-  return <Home />;
-};
+function Home() {
+  return <Movies />;
+}
 
-export default page;
+export default Home;
