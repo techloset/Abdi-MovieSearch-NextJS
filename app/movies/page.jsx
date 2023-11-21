@@ -17,7 +17,7 @@ const page = () => {
   const getMovies = async (e) => {
     try {
       setLoading(true);
-      const res = await fetch(API_URL);
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL);
       const data = await res.json();
       setMovies(data.results);
       setLoading(false);
@@ -34,7 +34,7 @@ const page = () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=1ab0c7d4ccf2120d836d098881dd51d0&query=${query}`
+        `${process.env.NEXT_PUBLIC_API_URL_SEARCH}&query=${query}`
       );
       const data = await res.json();
       setMovies(data.results);
