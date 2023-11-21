@@ -17,7 +17,7 @@ const page = () => {
   const getMovies = async (e) => {
     try {
       setLoading(true);
-      const res = await fetch(process.env.NEXT_PUBLIC_API_URL);
+      const res = await fetch(process.env.NEXT_PUBLIC_API_ENDPOINT);
       const data = await res.json();
       setMovies(data.results);
       setLoading(false);
