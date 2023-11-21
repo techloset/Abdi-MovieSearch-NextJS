@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import Card from "../(components)/Card";
 import Link from "next/link";
 
-const API_URL =
-  "https://api.themoviedb.org/3/movie/popular?api_key=1ab0c7d4ccf2120d836d098881dd51d0";
 const page = () => {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("");
