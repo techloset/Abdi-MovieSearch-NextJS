@@ -2,6 +2,25 @@ import Navbar from "@/app/(components)/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 
+//*********************** metadata ***********************
+
+export async function generateMetadata({ params }) {
+  const id = params.movieId;
+
+  // fetch data
+
+  const movie = await getData(id);
+
+  return {
+    title: movie.title,
+    description: movie.overview,
+    openGraph: {
+      images: [API_IMG + movie.backdrop_path],
+    },
+  };
+}
+//*********************** metadata ***********************
+
 const options = {
   method: "GET",
   headers: {
@@ -22,11 +41,10 @@ async function getData(id) {
   return res.json();
 }
 
+const API_IMG = "https://image.tmdb.org/t/p/w500/";
 const page = async ({ params }) => {
   const id = params.movieId;
   const movie = await getData(id);
-
-  const API_IMG = "https://image.tmdb.org/t/p/w500/";
 
   return (
     <>

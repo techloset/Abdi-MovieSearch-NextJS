@@ -1,7 +1,7 @@
-import { Poppins } from "next/font/google";
+import { Yatra_One } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({ subsets: ["latin"], weight: "400" });
+const poppins = Yatra_One({ subsets: ["latin"], weight: "400" });
 export const metadata = {
   title: "Movies Database ",
   description: "Movies Database by Abdi",
